@@ -31,7 +31,7 @@ date: 2023-04-07 00:45:13 -0400
 
 <p>The thing is that sometimes you need to get some value during the pipeline execution and store that value in a variable. But, what happens if you also need to use that variable in the pipeline's next step? For instance, if you export the variable, you will note that this value that you previously stored in some variable and exported it, is not available in the next step no matter what you did before. It is because this output variables live just in the scope of the task.</p>
 
-<p>So, if you need to store some value during the pipeline execution, you can store it in a variable and then use a Ad-hoc script to publish to the output variables. In the below example, i will store the hostname in a variable called MY_VAR and then i will use <span>##vso</span> command to publish it. In order to accomplish this, i will use a Command Line Task to publish the output variable and then i will use a Bash Script task to retrieve that value from the previous task.</p>
+<p>So, if you need to store some value during the pipeline execution, you can store it in a variable and then use an Ad-hoc script to publish to the output variables. In the below example, I will store the hostname in a variable called <code>MY_VAR</code> and then I will use <code>##vso</code> command to publish it. In order to accomplish this, I will use a Command Line Task to publish the output variable and then I will use a Bash Script task to retrieve that value from the previous task.</p>
 
 #### Command Line Task:
 ```
