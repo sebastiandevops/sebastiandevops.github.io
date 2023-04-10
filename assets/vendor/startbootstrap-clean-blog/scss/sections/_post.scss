@@ -53,14 +53,14 @@
 	2.0 Paragraph formatting
 --------------------------------------------------------------*/
 
+.paragraph-with-image {
+  display: inline-block;
+}
+.paragraph-with-image img {
+  width: 100%;
+}
 p {
   text-align: justify;
-}
-.img-container {
-  text-align: center;
-}
-.img-post {
-  width: 610px;
 }
 span {
   display: block;

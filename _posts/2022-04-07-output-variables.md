@@ -5,18 +5,16 @@ subtitle: "Using output variables during pipeline execution in Azure DevOps Clas
 date: 2023-04-09 00:45:13 -0400
 # background: '/img/posts/chilivim.png'
 ---
+<div class="paragraph-with-image">
+  <p>Variables are a crucial component of Azure DevOps that provide a great deal of flexibility. You can define your own variables using libraries that you can import into your pipelines, making them available across all pipelines within your organization.</p>
+  <img src="/img/posts/2023-04-07-output-variables/libraries.png">
 
-<p>Variables are a crucial component of Azure DevOps that provide a great deal of flexibility. You can define your own variables using libraries that you can import into your pipelines, making them available across all pipelines within your organization.</p>
+  <p>However, this isn't the only way to use variables in Azure DevOps. You can also define key-value pairs within your pipeline definitions, which will be available in the scope of your pipeline. Additionally, you can set key-value pairs in specific pipeline tasks to use these variables only within that task.</p>
 
-<div class="img-container">
-  <img class="img-post" src="/img/posts/2023-04-07-output-variables/libraries.png">
+  <p>Sometimes, you may need to store a value during pipeline execution and use it in the pipeline's next step. However, if you simply export the variable, you'll find that the value isn't available in the next step, no matter what you did before. This is because output variables exist only within the scope of the task.</p>
+
+  <p>To store a value during pipeline execution and make it available in the next step, you can store it in a variable and then use an ad-hoc script to publish it to the output variables. For example, you can store the hostname in a variable called <code>MY_VAR</code> then use the <code>##vso</code> command to publish it. To accomplish this, you can use a Command Line Task to publish the output variable, then use a Bash Script task to retrieve the value from the previous task.</p>
 </div>
-
-<p>However, this isn't the only way to use variables in Azure DevOps. You can also define key-value pairs within your pipeline definitions, which will be available in the scope of your pipeline. Additionally, you can set key-value pairs in specific pipeline tasks to use these variables only within that task.</p>
-
-<p>Sometimes, you may need to store a value during pipeline execution and use it in the pipeline's next step. However, if you simply export the variable, you'll find that the value isn't available in the next step, no matter what you did before. This is because output variables exist only within the scope of the task.</p>
-
-<p>To store a value during pipeline execution and make it available in the next step, you can store it in a variable and then use an ad-hoc script to publish it to the output variables. For example, you can store the hostname in a variable called <code>MY_VAR</code> then use the <code>##vso</code> command to publish it. To accomplish this, you can use a Command Line Task to publish the output variable, then use a Bash Script task to retrieve the value from the previous task.</p>
 
 #### Command Line Task:
 
@@ -26,13 +24,13 @@ echo "This is the hostname stored in MY_VAR: $MY_VAR"
 echo "##vso[task.setvariable variable=MY_OUTPUT_VAR;isOutput=true;]$MY_VAR"
 {% endhighlight %}
 
-<p>It's important to note that you need to define a reference name as a namespace to ensure that you can access the correct variable in the next task.</p>
+<div class="paragraph-with-image">
+  <p>It's important to note that you need to define a reference name as a namespace to ensure that you can access the correct variable in the next task.</p>
 
-<div class="img-container">
-  <img class="img-post" src="/img/posts/2023-04-07-output-variables/reference_name.png">
+  <img src="/img/posts/2023-04-07-output-variables/reference_name.png">
+
+  <p>In the Command Line Task, the raw log output will display the following information:</p>
 </div>
-
-<p>In the Command Line Task, the raw log output will display the following information:</p>
 
 {% highlight text %}
 Starting: Command Line Script
