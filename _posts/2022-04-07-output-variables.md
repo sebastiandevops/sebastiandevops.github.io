@@ -9,7 +9,7 @@ date: 2023-04-09 00:45:13 -0400
 <p>Variables are a crucial component of Azure DevOps that provide a great deal of flexibility. You can define your own variables using libraries that you can import into your pipelines, making them available across all pipelines within your organization.</p>
 
 <div class="img-container">
-  <img src="/img/posts/2023-04-07-output-variables/libraries.png">
+  <img class="img-post" src="/img/posts/2023-04-07-output-variables/libraries.png">
 </div>
 
 <p>However, this isn't the only way to use variables in Azure DevOps. You can also define key-value pairs within your pipeline definitions, which will be available in the scope of your pipeline. Additionally, you can set key-value pairs in specific pipeline tasks to use these variables only within that task.</p>
@@ -29,7 +29,7 @@ echo "##vso[task.setvariable variable=MY_OUTPUT_VAR;isOutput=true;]$MY_VAR"
 <p>It's important to note that you need to define a reference name as a namespace to ensure that you can access the correct variable in the next task.</p>
 
 <div class="img-container">
-  <img src="/img/posts/2023-04-07-output-variables/reference_name.png">
+  <img class="img-post" src="/img/posts/2023-04-07-output-variables/reference_name.png">
 </div>
 
 <p>In the Command Line Task, the raw log output will display the following information:</p>
