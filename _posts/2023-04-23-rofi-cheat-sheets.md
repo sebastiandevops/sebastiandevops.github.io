@@ -76,7 +76,6 @@ less -RX
 {% endhighlight %}
 <p>The line containing the <code>curl</code> command sends an HTTP GET request to cheat.sh with the specified programming language and cheat sheet request. The <code>-s</code> flag makes the command silent, and the <code>2>&1</code> redirects error messages to standard output. The <code>|</code> symbol pipes the output of the command to the <code>less</code> command in the pipeline, which allows for scrolling through the output. The <code>-R</code> flag makes <code>less</code> display ANSI color escape sequences correctly, and the <code>-X</code> flag prevents the output from being cleared on exit.</p>
 
-<div class="paragraph-with-image">
 <p>Here's a line-by-line explanation of the second script:</p>
 
 {% highlight text %}
@@ -89,7 +88,8 @@ kitty --class kitty-helper -e $HOME/bin/cheat $(echo $string)
 {% endhighlight %}
 <p>This line opens a new Kitty terminal window with the class kitty-helper, which can be used for identifying this window or configuring its appearance. The <code>-e</code> option is used to execute a command in the new window. The <code>$(echo $string)</code> part is used to pass the contents of the <code>string</code> variable as arguments to the first script.</p>
 
-  <p>So, overall, this script is used to launch a Rofi dmenu for user input, and then open a new Kitty terminal window to display the results of the cheat script with the user's input as arguments.</p>
+<p>So, overall, this script is used to launch a Rofi dmenu for user input, and then open a new Kitty terminal window to display the results of the cheat script with the user's input as arguments.</p>
+<div class="paragraph-with-image">
   <p>And this is how it looks the request <code>python read csv</code>.</p>
   <img src="/img/posts/2023-04-23-rofi-cheat-sheets/2023-04-23_06-30.png">
 </div>
