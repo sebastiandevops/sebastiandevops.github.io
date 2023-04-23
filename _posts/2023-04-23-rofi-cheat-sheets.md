@@ -94,6 +94,6 @@ kitty --class kitty-helper -e $HOME/bin/cheat $(echo $string)
   <img src="/img/posts/2023-04-23-rofi-cheat-sheets/2023-04-23_06-30.png">
 </div>
 
-<p>In conclusion, the cheat script and the Rofi menu provide a simple and convenient way to search for programming-related information on cheat.sh, with the option to customize the appearance of the menu and the terminal window. The cheat script can be easily integrated into your workflow and adapted to your needs.</p>
+<p>In conclusion, the cheat script and the Rofi menu provide a simple and convenient way to search for programming-related information on cheat.sh, with the option to customize the appearance of the menu and the terminal window. The cheat script can be easily integrated into your workflow and adapted to your needs. Additionally, you can map a keybind to quickly access the cheat Rofi menu according to your window manager or desktop environment, making it even more efficient to use.</p>
 
 <p>The scripts used in this tutorial can be found in the <a href="https://github.com/sebastiandevops/.awesomedotfiles">dotfiles</a> repository on GitHub, along with other configuration files for various tools and applications.</p>
