@@ -7,6 +7,8 @@ background: '/img/posts/2023-05-28-my-twitter-bot/2023-05-28_tweepy_background.p
 ---
 <p>When I was studying to become a Software Developer, I had to tweet at least once every day to accomplish one of the goals of the school in which I was taking the program. In order to do that, I decided to create a bot to perform that operation in an automated way every day. That is how I found Tweepy, a Python library which allows you to use Twitter API.</p>
 
+<p>The purpose of the bot is to gather fascinating facts from a website that publishes daily historical events and occurrences. It accomplishes this by employing a web scraper that extracts data from the website's HTML files. The extracted information is then stored in a file for further processing. Using the Tweepy library, the bot accesses the stored data and crafts intriguing tweets. These tweets are then published on a regular basis, sharing intriguing and curious facts with the bot's followers.</p>
+
 <p><b>Process to create your first Twitter bot:</b>
     <ul>
         <li>Make sure you install Tweepy locally.</li>
