@@ -177,7 +177,7 @@ def tweet_job(api):
     # Note: this design means the bot runs continuously
     myline = myline
     mystr = myline.strip()
-    mystr = f"🤖 #HoyEnLaHistoria, {formatted_date}, " + mystr
+    mystr = f"🤖 #HoyEnLaHistoria, {formatted_date}, " + mystr + " [© 2012-2023 Hoyenlahistoria.com]"
 
     if len(mystr) <= 240:
         original_tweet = api.update_status(status=mystr)
@@ -226,7 +226,7 @@ if __name__ == "__main__":
 
 <p>Also the <code>main()</code> function is defined, which calls the <code>create_api()</code> function to create an authenticated API instance and passes it to the <code>tweet_job()</code> function.</p>
 
-<p>Finally, we use the entrypoint, which is used to check if the current module is the main module by using the if __name__ == "__main__": condition. If it is, it calls the main() function to start the execution of the script.</p>
+<p>Finally, we use the entrypoint, which is used to check if the current module is the main module by using the <code>if __name__ == "__main__":</code> condition. If it is, it calls the <code>main()</code> function to start the execution of the script.</p>
 
 <p>In summary, this script defines a function <code>tweet_job()</code> that reads lines from a file, selects a random line, formats the current date, and tweets the content. If the tweet exceeds the character limit, it splits the tweet into multiple parts. The script also defines a <code>main()</code> function that creates an authenticated API instance and calls <code>tweet_job()</code>. When executed as the main module, it sets everything in motion.</p>
 
@@ -270,15 +270,16 @@ def split_string(string):
 #!/usr/bin/env bash
 # Secuence
 url=$1
-dir="$HOME/tweepy_bot/scrapers"
+dir="$HOME/estudio/tweepy_bot/scrapers"
 rm -rf "$dir"/hoy_en_la_historia.txt
 echo $(curl --silent "$url" | htmlq --text | html2text) | tr -s ' ' | sed '/./G' > "$dir"/datos.txt
-sed -r 's/(.)([0-9]{4}\s)/\1\n\2/g' "$dir"/datos.txt > "$dir"/output.txt
-sed -E 's/([^A-Z])\.([^,])/\1.\n\2/g' "$dir"/output.txt > "$dir"/output2.txt
-grep -E '[0-9]{4}\s' "$dir"/output2.txt > "$dir"/output3.txt
-grep -v -e 'See All' -e 'SHOW' -e 'Efemérides' "$dir"/output3.txt | grep -vE '^.{,120}$' > "$dir"/output4.txt
-sed -E 's/([0-9]{4}) /\1, /g' "$dir"/output4.txt > "$dir"/output5.txt
-sed 's/, - /, /g' "$dir"/output5.txt > "$dir"/hoy_en_la_historia.txt
+sed -E 's/([0-9]{3,4} -)/\n\1/g' "$dir"/datos.txt > "$dir"/output.txt
+sed -i '/^\s*$/d' "$dir"/output.txt
+sed -i '$ s/\./.\n/' "$dir"/output.txt
+grep -v -e 'See All' -e 'SHOW' -e 'Efemérides' "$dir"/output.txt | grep -vE '^.{,60}$' > "$dir"/output2.txt
+sed 's/ - /, /g' "$dir"/output2.txt > "$dir"/hoy_en_la_historia.txt
+
+# Workspace cleanup
 rm -rf "$dir"/output* "$dir"/datos*
 {% endhighlight %}
 
@@ -296,17 +297,15 @@ rm -rf "$dir"/output* "$dir"/datos*
 <p><code>echo $(curl --silent "$url" | htmlq --text | html2text) | tr -s ' ' | sed '/./G' > "$dir"/datos.txt</code>: This command retrieves the HTML content from the specified URL using <code>curl</code>, processes it using <code>htmlq</code> and <code>html2text</code>, and saves the result in a temporary file called <code>datos.txt</code>. The <code>echo</code> command and subsequent pipeline manipulate the text by removing excessive spaces and adding line breaks.</p>
 
 
-<p><code>sed -r 's/(.)([0-9]{4}\s)/\1\n\2/g' "$dir"/datos.txt > "$dir"/output.txt</code>: This command uses <code>sed</code> to insert a line break before every occurrence of a four-digit year followed by a space. It reads from <code>datos.txt</code> and writes the result to <code>output.txt</code>.</p>
+<p><code>sed -E 's/([0-9]{3,4} -)/\n\1/g' "$dir"/datos.txt > "$dir"/output.txt</code>: <code>([0-9]{3,4} -)</code> is the pattern that matches either a 3-digit or 4-digit sequence followed by a space and a dash. The captured group is then inserted into the replacement string <code>\n\1<code> to add a newline before the matched pattern.</p>
 
-<p><code>sed -E 's/([^A-Z])\.([^,])/\1.\n\2/g' "$dir"/output.txt > "$dir"/output2.txt</code>: This command inserts a line break after every occurrence of a period <code>.</code> that is not followed by an uppercase letter. It reads from <code>output.txt</code> and writes the result to <code>output2.txt</code>.</p>
+<p><code>sed -i '/^\s*$/d' "$dir"/output.txt</code>: This command is used to delete empty lines in the file. <code>/^\s*$/</code> is a regular expression pattern that matches empty lines. The <code>^</code> represents the start of a line, <code>\s*</code> matches zero or more whitespace characters, and <code>$</code> represents the end of a line. <code>/d</code> is the sed command to delete the matched lines.</p>
 
-<p><code>grep -E '[0-9]{4}\s' "$dir"/output2.txt > "$dir"/output3.txt</code>: This command filters the lines in <code>output2.txt</code> and only keeps the lines that contain a four-digit year followed by a space. The filtered lines are then written to <code>output3.txt</code>.</p>
+    <p><code>sed -i '$ s/\./.\n/' "$dir"/output.txt</code>: <code>$</code> matches the last line of the file. <code>s/\./.\n/</code> finds the first occurrence of a dot <code>\.</code> on the last line and replaces it with the dot followed by a newline <code>.\n</code>.</p>
 
-<p><code>grep -v -e 'See All' -e 'SHOW' -e 'Efemérides' "$dir"/output3.txt | grep -vE '^.{,120}$' > "$dir"/output4.txt</code>: This command filters out lines in <code>output3.txt</code> that contain certain keywords (See All, SHOW, Efemérides). It also removes lines that are shorter than or equal to 120 characters. The filtered lines are written to <code>output4.txt</code>.</p>
+<p><code>grep -v -e 'See All' -e 'SHOW' -e 'Efemérides' "$dir"/output.txt | grep -vE '^.{,60}$' > "$dir"/output2.txt</code>: This command filters out lines in <code>output3.txt</code> that contain certain keywords (See All, SHOW, Efemérides). It also removes lines that are shorter than or equal to 60 characters. The filtered lines are written to <code>output2.txt</code>.</p>
 
-<p><code>sed -E 's/([0-9]{4}) /\1, /g' "$dir"/output4.txt > "$dir"/output5.txt</code>: This command replaces occurrences of a four-digit year followed by a space with the same year followed by a comma and a space. It reads from <code>output4.txt</code> and writes the result to <code>output5.txt</code>.</p>
-
-<p><code>sed 's/, - /, /g' "$dir"/output5.txt > "$dir"/hoy_en_la_historia.txt</code>: This command replaces occurrences of <code>, -</code> with just a comma followed by a whitespace in <code>output5.txt</code> and saves the result as <code>hoy_en_la_historia.txt</code>.</p>
+<p><code>sed 's/ - /, /g' "$dir"/output2.txt > "$dir"/hoy_en_la_historia.txt</code>: This is a substitution command that searches for the pattern "space-dash-space" <code> - </code> and replaces it with a comma and a space <code>, <c/ode>.</p>
 
 <p><code>rm -rf "$dir"/output* "$dir"/datos*</code>: This command removes all temporary files starting with <code>output</code> and <code>datos</code> in the specified directory <code>$dir</code> to clean our workspace.</p>
 
