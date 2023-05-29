@@ -413,3 +413,5 @@ ACCESS_TOKEN_SECRET=[your access token secret]
 
 <p><b>Conclusion</b></p>
 <p>Creating a Twitter bot using Tweepy and the Twitter API has been a rewarding experience. Through the use of Tweepy's Python library and the authentication credentials provided by the Twitter developer account, I was able to automate the process of tweeting daily. By fetching data from a website, composing tweets, and formatting them appropriately, the bot script fulfilled the requirements of my school program. The implementation of Crontab jobs ensured the bot's automation, allowing for consistent and timely tweets. Overall, this project has not only deepened my understanding of APIs, data scraping, and automation but has also strengthened my skills as a software developer.</p>
+
+<p>I you want to see the repo with all the configuration files you can follow this <a href="https://github.com/sebastiandevops/tweepy_bot">link</a>.</p>
