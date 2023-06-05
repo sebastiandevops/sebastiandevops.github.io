@@ -307,7 +307,7 @@ rm -rf "$dir"/data.txt
 
 <p><code>url=$1</code>: This command assigns the first argument passed to the script to the variable <code>url</code>. It allows you to provide a URL as an argument when executing the script.</p>
 
-<p><code>dir="$HOME/estudio/tweepy_bot/scrapers"</code>: This command sets the directory path where the data will be stored. It assigns the specified path to the variable <code>dir</code>.</p>
+<p><code>dir="$HOME/tweepy_bot/scrapers"</code>: This command sets the directory path where the data will be stored. It assigns the specified path to the variable <code>dir</code>.</p>
 
 <p><code>rm -rf "$dir"/hoy_en_la_historia.txt</code>: This command removes any existing <code>hoy_en_la_historia.txt</code> file in the specified directory <code>$dir</code>.</p>
 
